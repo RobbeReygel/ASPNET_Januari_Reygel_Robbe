@@ -1,0 +1,47 @@
+﻿@model CarListViewModel
+
+@{
+    ViewData["Title"] = "Overzicht eigenaars";
+}
+
+<div class="row">
+    <div class="col-md-12">
+
+           
+
+        <table class="table">
+            @foreach (var group in Model.Cars.OrderBy(item => item.Owner).GroupBy(item => item.Owner))
+            {
+
+                <thead>
+                    <tr>
+                        @if (group.Key != null)
+                        { 
+                        <td><b>@group.Key</b></td>
+                        }
+                        else
+                        {
+                            <td><b>Geen eigenaar</b></td>
+                        }
+                    </tr>
+                </thead>
+
+
+                @foreach (var car in group)
+                {
+                    <tr>
+                        <td><a asp-controller="Car" asp-action="Detail" asp-route-id="@car.Id">@car.Plate</a> @car.Type</td>
+                    </tr>
+                }
+
+            }
+        </table>
+
+
+        
+        <a asp-controller="Car" asp-action="New" asp-route-id="0"
+           onclick="$.post(this.href).success(window.location.href = '/cars/0');return false; " class="btn btn-primary">
+            Nieuwe Auto
+        </a>
+    </div>
+</div>

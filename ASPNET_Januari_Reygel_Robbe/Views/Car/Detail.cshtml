@@ -1,0 +1,42 @@
+﻿@model CarEditDetailViewModel
+
+@{
+    ViewData["Title"] = "Detail " + Model.Plate;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div>
+            <form asp-controller="Car" asp-action="Persist" method="post">
+                <input type="hidden" asp-for="Id" />
+                <br /><br />
+                <div class="form-group">
+                    <label asp-for="Plate">Nummerplaat:</label>
+                    <input type="text" asp-for="Plate" placeholder="Nummerplaat"/>
+                    <span asp-validation-for="Plate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PurchaseDate">Aankoop datum:</label>
+                    <input type="date" asp-for="PurchaseDate"/>
+                    <span asp-validation-for="PurchaseDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Owners">Owner:</label>
+                    <select asp-for="OwnerId" asp-items="Model.Owners"></select>
+                    <span asp-validation-for="Owners" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Type">Type:</label>
+                    <select asp-for="TypeId" asp-items="Model.Types"></select>
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+                <input type="submit" class="btn btn-primary"/>
+            </form>
+            <br />
+            <a asp-controller="Car" asp-action="Delete" asp-route-id="@Model.Id"
+                onclick="$.post(this.href).success(window.location.href = document.referrer);return false; " class="btn btn-danger">
+                Delete
+            </a>
+        </div>
+    </div>
+</div>

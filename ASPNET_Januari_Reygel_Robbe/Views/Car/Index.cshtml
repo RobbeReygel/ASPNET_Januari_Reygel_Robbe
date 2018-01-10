@@ -1,0 +1,41 @@
+﻿@model CarListViewModel
+
+@{
+    ViewData["Title"] = "Overzicht autos";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+            <tr>
+                <td>Nummerplaat</td>
+                <td>Eigenaar</td>
+                <!--<td>Datum gekocht</td>-->
+                <td>Type</td>
+            </tr>
+            </thead>
+            @foreach (var car in Model.Cars)
+            {
+                <tr>
+                    <td>
+                        <a asp-controller="Car" asp-action="Detail" asp-route-id="@car.Id">@car.Plate</a>
+                    </td>
+                    <td>@car.Owner</td>
+                    <td>@car.Type</td>
+                    <!--<td>
+                        <a asp-controller="Car" asp-action="Delete" asp-route-id=""
+                           onclick="$.post(this.href).success(window.location.href = '/cars');return false; ">
+                            Delete
+                        </a>
+                    </td>-->
+                </tr>
+            }
+        </table>
+
+        <a asp-controller="Car" asp-action="New" asp-route-id="0"
+           onclick="$.post(this.href).success(window.location.href = '/cars/0');return false; " class="btn btn-primary">
+            Nieuwe Auto
+        </a>
+    </div>
+</div>
